@@ -12,12 +12,35 @@ class UserController{
         this.formEl.addEventListener("submit",event=>{
             //cancelar o comportamento padrão deste evento.
             event.preventDefault();
-            this.addLine(this.getValues())
+            let values = this.getValues()
             
+            this.getPhoto((content)=>{
+                values.photo = content
+                this.addLine(values)
+            })
         })
 
     }
+
+    getPhoto(callback){
+        //Utilizando API Javascript para leitura de arquivos
+        let fileReader = new FileReader();
+        
+        let elements = [...this.formEl.elements].filter(item =>{
+            if (item.name === 'photo'){
+                return item
+            }
+        })
+        let file = elements[0].files[0]
+        fileReader.onload = ()=>{
+            
+            callback(fileReader.result)
+        }
+        fileReader.readAsDataURL(file)
+    }
+
     getValues(){
+        //Inserindo Spread para corrigir erro
         let user = {};
         [...this.formEl.elements].forEach(function(field, index){
             if(field.name == "gender" && field.checked == true){
@@ -42,7 +65,7 @@ class UserController{
      addLine(dataUser){
         this.tableEl.innerHTML = `
         <tr>
-            <td><img src="dist/img/user1-128x128.jpg" alt="User Image" class="img-circle img-sm"></td>
+            <td><img src="${dataUser.photo}" alt="User Image" class="img-circle img-sm"></td>
             <td>${dataUser.name}</td>
             <td>${dataUser.email}</td>
             <td>${dataUser.admin}</td>
