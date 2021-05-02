@@ -29,9 +29,7 @@ class UserController{
                 console.error(e)
             })
         })
-
     }
-
     getPhoto(){
         //Utilizando API Javascript para leitura de arquivos
         //Inserindo nova Promise
