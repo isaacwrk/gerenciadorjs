@@ -18,6 +18,8 @@ class UserController{
             btn.disabled = true
             let values = this.getValues()
 
+            if(!values) return false
+
             this.getPhoto().then((content)=>{
                 values.photo = content
                 this.addLine(values)
@@ -79,9 +81,11 @@ class UserController{
                 user[field.name] = field.value
             }
         })
+
         if(!isValid){
             return false
         }
+
         return new User(
             user.name,
             user.gender,
@@ -110,6 +114,10 @@ class UserController{
         
         `;
         this.tableEl.appendChild(tr)
+        this.updateCount()
     }
 
+    updateCount(){
+        
+    }
 }
