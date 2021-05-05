@@ -186,6 +186,7 @@ class UserController{
 
             if(confirm("Deseja realmente Excluir?")){
                 tr.remove()
+                this.updateCount()
             }
         });
 
