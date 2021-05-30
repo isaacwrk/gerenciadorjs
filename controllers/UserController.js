@@ -40,7 +40,7 @@ class UserController{
 
         let user = new User()
         user.loadFromJSON(result)
-
+        user.save()
         this.getTr(user, tr)
         this.updateCount()
         this.formUpdateEl.reset()
@@ -68,9 +68,7 @@ class UserController{
 
             this.getPhoto(this.formEl).then((content)=>{
                 values.photo = content
-                //Inserindo sessionStorage
-                this.insert(values)
-
+                values.save()
                 this.addLine(values)
                 //resetar os campos
                 this.formEl.reset()
@@ -169,15 +167,7 @@ class UserController{
 
     }
 
-    insert(data){
-        let users = this.getUsersStorage()
-
-        users.push(data)
-        //alterando de sessionStorage para localStorage
-        localStorage.setItem("users",JSON.stringify(users))
-    }
-
-     addLine(dataUser){
+    addLine(dataUser){
         let tr = this.getTr(dataUser)
         this.tableEl.appendChild(tr)
         this.updateCount()
