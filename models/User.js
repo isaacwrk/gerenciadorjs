@@ -90,7 +90,7 @@ class User{
         if(this.id > 0){
             users.map(u =>{
                 if(u._id === this.id){
-                    u = this
+                    Object.assign(u, this)
                 }
                 return u
             })
